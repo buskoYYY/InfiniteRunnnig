@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] Transform[] laneTransform;
+    [SerializeField] float moveSpeed = 20f;
+    [SerializeField] float jumpHight = 2.5f;
     private Vector3 destination;
     private int currentIndex;
 
@@ -26,19 +28,21 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        playerInput.Disable(); 
+        playerInput.Disable();
     }
     void Start()
     {
         // подписка на событие нажати€ клавиши
         playerInput.gamePlay.Move.performed += MovePerformed; // при наступлени€ данного событи€ запускаетс€ метод подход€щий по сигнатуре
-        // playerInput - экземпл€р класса
-        // gamePlay - лист actions который мы создали
-       // Move - action в листе GamePlay
-       // performed - если кнопка нажата
-       // canceled - если кнопка отпущена
-       //  событие (event)
-       for(int i = 0; i < laneTransform.Length; i++)
+                                                              // playerInput - экземпл€р класса
+                                                              // gamePlay - лист actions который мы создали
+                                                              // Move - action в листе GamePlay
+                                                              // performed - если кнопка нажата
+                                                              // canceled - если кнопка отпущена
+                                                              //  событие (event)
+        playerInput.gamePlay.Jump.performed += JumpPerformed;
+
+        for (int i = 0; i < laneTransform.Length; i++)
         {
             if (laneTransform[i].position == transform.position)
             {
@@ -49,10 +53,23 @@ public class Player : MonoBehaviour
 
     }
 
+    private void JumpPerformed(InputAction.CallbackContext context)
+    {
+        Rigidbody rigidBody = GetComponent<Rigidbody>();
+
+        if (rigidBody != null)
+        {
+            float jumpUpSpeed = Mathf.Sqrt(2 * jumpHight * Physics.gravity.magnitude);
+            rigidBody.AddForce(new Vector3(0, jumpUpSpeed, 0), ForceMode.VelocityChange);
+        }
+    }
+
     private void MovePerformed(InputAction.CallbackContext context)
     {
+       if(!IsOnGround()) { return; }
+
         float inputValue = context.ReadValue<float>(); // будет равн€тьс€ -1, 1
-        
+
         if (inputValue > 0f)
         {
             MoveRight();
@@ -66,7 +83,7 @@ public class Player : MonoBehaviour
 
     private void MoveLeft()
     {
-        if(currentIndex == 0) { return; }
+        if (currentIndex == 0) { return; }
 
         currentIndex--;
         destination = laneTransform[currentIndex].position;
@@ -74,7 +91,7 @@ public class Player : MonoBehaviour
 
     private void MoveRight()
     {
-        if(currentIndex == laneTransform.Length - 1) { return; }
+        if (currentIndex == laneTransform.Length - 1) { return; }
 
         currentIndex++;
         destination = laneTransform[currentIndex].position;
@@ -82,6 +99,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        transform.position = destination;   
+        float transformX = Mathf.Lerp(transform.position.x, destination.x, moveSpeed * Time.deltaTime);
+        transform.position = new Vector3(transformX, transform.position.y, transform.position.z); // движение по позици€м y и z будет согласно физике
+    }
+
+    private bool IsOnGround()
+    {
+        return true;
     }
 }
