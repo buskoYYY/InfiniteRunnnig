@@ -122,8 +122,6 @@ public class Player : MonoBehaviour
 
     private bool IsOnGround()
     {
-        Vector3 vec1 = laneTransform[0].transform.position - laneTransform[2].transform.position;
-        Debug.Log(vec1.magnitude);
         return Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, groundCheckMask);
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2403621236773949359}
   - component: {fileID: 8422313227683108194}
   - component: {fileID: 1183553000519925362}
+  - component: {fileID: 259998190841075060}
   m_Layer: 6
   m_Name: RoadModule
   m_TagString: Untagged
@@ -106,3 +107,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &259998190841075060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7554054683932141682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745e81106c4a7fa49b83ae802a497b8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

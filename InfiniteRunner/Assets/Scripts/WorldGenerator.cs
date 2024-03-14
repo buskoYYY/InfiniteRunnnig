@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public class WorldGenerator : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Transform startPoint;
     [SerializeField] Transform endPoint;
     [SerializeField] GameObject[] roadBlocks;
+
+    [Header("Settings")]
+    [SerializeField] float envMoveSpeed = 4;
     void Start()
     {
         Vector3 nextBlockPosition = startPoint.position;
@@ -20,13 +24,20 @@ public class WorldGenerator : MonoBehaviour
             GameObject newBlock = Instantiate(pickedBlock);
             newBlock.transform.position = nextBlockPosition;
             float bloackLeanth = newBlock.GetComponent<Renderer>().bounds.size.z;
-            nextBlockPosition += (endPoint.position - startPoint.position).normalized * bloackLeanth;
+            Vector3 incrementDirection = (endPoint.position - startPoint.position).normalized;
+            nextBlockPosition += incrementDirection * bloackLeanth;
+            MovementComp movementComp = newBlock.GetComponent<MovementComp>();
+
+            if (movementComp != null)
+            {
+                movementComp.SetMoveSpeed(envMoveSpeed);
+                movementComp.SetMoveDir(incrementDirection);
+                movementComp.SetDestination(endPoint.position);
+            }
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-
+        Debug.Log("exit");
     }
 }
