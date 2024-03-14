@@ -8,12 +8,16 @@ public class Player : MonoBehaviour
 {
     [Header("Elements")]
     PlayerInput playerInput; // скрипт в котором храняться созданыые нами экшены
+    [SerializeField] Transform[] laneTransform;
+    [SerializeField] Transform groundCheckTransform;
+    [SerializeField] LayerMask groundCheckMask;
+    private Animator playerAnimator;
 
 
     [Header("Settings")]
-    [SerializeField] Transform[] laneTransform;
     [SerializeField] float moveSpeed = 20f;
     [SerializeField] float jumpHight = 2.5f;
+    [SerializeField][Range(0, 1)] float groundCheckRadius = 0.2f;
     private Vector3 destination;
     private int currentIndex;
 
@@ -51,22 +55,28 @@ public class Player : MonoBehaviour
             }
         }
 
+        playerAnimator = GetComponent<Animator>();
     }
 
     private void JumpPerformed(InputAction.CallbackContext context)
     {
-        Rigidbody rigidBody = GetComponent<Rigidbody>();
-
-        if (rigidBody != null)
+        if (IsOnGround())
         {
-            float jumpUpSpeed = Mathf.Sqrt(2 * jumpHight * Physics.gravity.magnitude);
-            rigidBody.AddForce(new Vector3(0, jumpUpSpeed, 0), ForceMode.VelocityChange);
+            Rigidbody rigidBody = GetComponent<Rigidbody>();
+
+            if (rigidBody != null)
+            {
+                float jumpUpSpeed = Mathf.Sqrt(2 * jumpHight * Physics.gravity.magnitude);
+                rigidBody.AddForce(new Vector3(0, jumpUpSpeed, 0), ForceMode.VelocityChange);
+            }
         }
+
+
     }
 
     private void MovePerformed(InputAction.CallbackContext context)
     {
-       if(!IsOnGround()) { return; }
+        if (!IsOnGround()) { return; }
 
         float inputValue = context.ReadValue<float>(); // будет равняться -1, 1
 
@@ -99,12 +109,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!IsOnGround())
+        {
+            playerAnimator.SetBool("isOnGround", false);
+            return;
+        }
+        playerAnimator.SetBool("isOnGround", true);
+
         float transformX = Mathf.Lerp(transform.position.x, destination.x, moveSpeed * Time.deltaTime);
         transform.position = new Vector3(transformX, transform.position.y, transform.position.z); // движение по позициям y и z будет согласно физике
     }
 
     private bool IsOnGround()
     {
-        return true;
+        Vector3 vec1 = laneTransform[0].transform.position - laneTransform[2].transform.position;
+        Debug.Log(vec1.magnitude);
+        return Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, groundCheckMask);
     }
 }
