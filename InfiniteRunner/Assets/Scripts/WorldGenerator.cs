@@ -8,36 +8,54 @@ public class WorldGenerator : MonoBehaviour
     [Header("Elements")]
     [SerializeField] Transform startPoint;
     [SerializeField] Transform endPoint;
+    [SerializeField] Transform[] buildingSpawnPoint;
     [SerializeField] GameObject[] roadBlocks;
+    [SerializeField] GameObject[] buildings;
 
     [Header("Settings")]
     [SerializeField] float envMoveSpeed = 4;
+    Vector3 moveDirection;
     void Start()
     {
         Vector3 nextBlockPosition = startPoint.position;
         float endPointDistance = Vector3.Distance(startPoint.position, endPoint.position);
+        moveDirection = (endPoint.position - startPoint.position).normalized;
 
         while (Vector3.Distance(startPoint.position, nextBlockPosition) < endPointDistance)
         {
-            int pick = Random.Range(0, roadBlocks.Length);
-            GameObject pickedBlock = roadBlocks[pick];
-            GameObject newBlock = Instantiate(pickedBlock);
-            newBlock.transform.position = nextBlockPosition;
+            GameObject newBlock = SpawnNewBlock(nextBlockPosition, moveDirection);
             float bloackLeanth = newBlock.GetComponent<Renderer>().bounds.size.z;
-            Vector3 incrementDirection = (endPoint.position - startPoint.position).normalized;
-            nextBlockPosition += incrementDirection * bloackLeanth;
-            MovementComp movementComp = newBlock.GetComponent<MovementComp>();
+            nextBlockPosition += moveDirection * bloackLeanth;
 
-            if (movementComp != null)
-            {
-                movementComp.SetMoveSpeed(envMoveSpeed);
-                movementComp.SetMoveDir(incrementDirection);
-                movementComp.SetDestination(endPoint.position);
-            }
         }
+    }
+
+    private GameObject SpawnNewBlock(Vector3 spawnPos, Vector3 moveDirection)
+    {
+        int pick = Random.Range(0, roadBlocks.Length);
+        GameObject pickedBlock = roadBlocks[pick];
+        GameObject newBlock = Instantiate(pickedBlock);
+        newBlock.transform.position = spawnPos;
+        MovementComp movementComp = newBlock.GetComponent<MovementComp>();
+
+        if (movementComp != null)
+        {
+            movementComp.SetMoveSpeed(envMoveSpeed);
+            movementComp.SetMoveDir(moveDirection);
+            movementComp.SetDestination(endPoint.position);
+        }
+        return newBlock;
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("exit");
+        if(other.gameObject != null)
+        {
+            GameObject newBlock = SpawnNewBlock(other.transform.position,moveDirection);
+            float newBlockHalfWidth = newBlock.GetComponent<Renderer>().bounds.size.z/2f;
+            float previousBlockHalfWidth = other.GetComponent<Renderer>().bounds.size.z/2f;
+
+            Vector3 newBlockSpawnOffset = -(newBlockHalfWidth + previousBlockHalfWidth) * moveDirection;
+            newBlock.transform.position += newBlockSpawnOffset;
+        }
     }
 }

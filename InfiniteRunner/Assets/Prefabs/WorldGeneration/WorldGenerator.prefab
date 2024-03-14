@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9062923466528789611}
+  - component: {fileID: 1684315093718577857}
   m_Layer: 0
   m_Name: Spawn Detection
   m_TagString: Untagged
@@ -25,12 +26,33 @@ Transform:
   m_GameObject: {fileID: 1019605394487361822}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -43}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1450488047462438335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1684315093718577857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019605394487361822}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2122911690034058993
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8726898076747455924}
   - component: {fileID: 37544755355557050}
+  - component: {fileID: 1051215955166066594}
   m_Layer: 0
   m_Name: WorldGenerator
   m_TagString: Untagged
@@ -110,10 +133,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1450488047462438335}
   endPoint: {fileID: 7766574213877675613}
+  buildingSpawnPoint:
+  - {fileID: 8050127854715408684}
+  - {fileID: 6199102123255040532}
   roadBlocks:
   - {fileID: 211123049419007260, guid: d82a110112794a845a88425a14fbc4ac, type: 3}
   - {fileID: 211123049419007260, guid: 651d4c8118b00a141974d4d77544a8d1, type: 3}
+  buildings:
+  - {fileID: 919132149155446097, guid: 4a0e1204e193c984aa1f25a82f5d691e, type: 3}
+  - {fileID: 919132149155446097, guid: 2b987ffff5ac976409ca8e3d8460a20a, type: 3}
+  - {fileID: 919132149155446097, guid: 9f0b547e4291f064d930f6c19992796b, type: 3}
+  - {fileID: 919132149155446097, guid: f79b176c2beb36845a7bd2eb2eb98530, type: 3}
   envMoveSpeed: 2
+--- !u!54 &1051215955166066594
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548353391672757425}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6439221491352749391
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,5 +202,69 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9062923466528789611}
+  - {fileID: 8050127854715408684}
+  - {fileID: 6199102123255040532}
   m_Father: {fileID: 8726898076747455924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6456862073381799214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8050127854715408684}
+  m_Layer: 0
+  m_Name: BuildingSpawnPointLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8050127854715408684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456862073381799214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450488047462438335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7664344042196739100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6199102123255040532}
+  m_Layer: 0
+  m_Name: BuildingSpawnPointRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6199102123255040532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664344042196739100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450488047462438335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
