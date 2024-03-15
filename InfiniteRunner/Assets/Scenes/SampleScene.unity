@@ -383,11 +383,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1550488338}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &799405411 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8050127854715408684, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-  m_PrefabInstance: {fileID: 5355025137946237121}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,16 +475,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1358484058 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1450488047462438335, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-  m_PrefabInstance: {fileID: 5355025137946237121}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1400559072 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6199102123255040532, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-  m_PrefabInstance: {fileID: 5355025137946237121}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1469156894
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,68 +539,6 @@ Transform:
   - {fileID: 391419397}
   - {fileID: 739090932}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1574786927
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1574786928}
-  m_Layer: 0
-  m_Name: StreeLightSpawnPointRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1574786928
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574786927}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1358484058}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1714551347
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1714551348}
-  m_Layer: 0
-  m_Name: 'StreeLightSpawnPointLeft '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1714551348
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1714551347}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1358484058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1798440820
 PrefabInstance:
@@ -728,33 +651,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: streetLight
-      value: 
-      objectReference: {fileID: 919132149155446097, guid: 22350837df3773d4480220f6e85e2b00, type: 3}
-    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: buildingSpawnPoints.Array.size
-      value: 2
+    - target: {fileID: 1450488047462438335, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: buildingSpawnPoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 799405411}
-    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: buildingSpawnPoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 1400559072}
     - target: {fileID: 2548353391672757425, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: m_Name
       value: WorldGenerator
-      objectReference: {fileID: 0}
-    - target: {fileID: 6199102123255040532, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 8050127854715408684, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 8726898076747455924, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -798,13 +701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1450488047462438335, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1714551348}
-    - targetCorrespondingSourceObject: {fileID: 1450488047462438335, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1574786928}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
 --- !u!1660057539 &9223372036854775807
