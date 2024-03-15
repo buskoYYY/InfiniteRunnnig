@@ -133,9 +133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1450488047462438335}
   endPoint: {fileID: 7766574213877675613}
-  buildingSpawnPoint:
+  buildingSpawnPoints:
   - {fileID: 8050127854715408684}
   - {fileID: 6199102123255040532}
+  streetLightSpawnPoints:
+  - {fileID: 8455846027572021892}
+  - {fileID: 6765638601246560612}
   roadBlocks:
   - {fileID: 211123049419007260, guid: d82a110112794a845a88425a14fbc4ac, type: 3}
   - {fileID: 211123049419007260, guid: 651d4c8118b00a141974d4d77544a8d1, type: 3}
@@ -144,7 +147,9 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 2b987ffff5ac976409ca8e3d8460a20a, type: 3}
   - {fileID: 919132149155446097, guid: 9f0b547e4291f064d930f6c19992796b, type: 3}
   - {fileID: 919132149155446097, guid: f79b176c2beb36845a7bd2eb2eb98530, type: 3}
+  streetLight: {fileID: 919132149155446097, guid: 22350837df3773d4480220f6e85e2b00, type: 3}
   envMoveSpeed: 2
+  buildingSpawnScaleRange: {x: 0.6, y: 0.8}
 --- !u!54 &1051215955166066594
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -204,6 +209,8 @@ Transform:
   - {fileID: 9062923466528789611}
   - {fileID: 8050127854715408684}
   - {fileID: 6199102123255040532}
+  - {fileID: 8455846027572021892}
+  - {fileID: 6765638601246560612}
   m_Father: {fileID: 8726898076747455924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6456862073381799214
@@ -231,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 6456862073381799214}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalPosition: {x: -11, y: 0.196, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -262,7 +269,69 @@ Transform:
   m_GameObject: {fileID: 7664344042196739100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalPosition: {x: 11, y: 0.196, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450488047462438335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8220779398260307776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8455846027572021892}
+  m_Layer: 0
+  m_Name: 'StreeLightSpawnPointLeft '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8455846027572021892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8220779398260307776}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5.5, y: 0.196, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450488047462438335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9086823910621103879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6765638601246560612}
+  m_Layer: 0
+  m_Name: StreeLightSpawnPointRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6765638601246560612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086823910621103879}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.5, y: 0.196, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
