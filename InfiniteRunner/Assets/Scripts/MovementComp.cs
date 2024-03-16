@@ -5,13 +5,9 @@ using UnityEngine;
 public class MovementComp : MonoBehaviour
 {
     [Header("Settings")]
-    float moveSpeed = 20f;
+    [SerializeField] float moveSpeed = 20f;
     Vector3 moveDirection = Vector3.forward;
     Vector3 destination;
-    void Start()
-    {
-        
-    }
 
     public void SetMoveDir(Vector3 dir)
     {

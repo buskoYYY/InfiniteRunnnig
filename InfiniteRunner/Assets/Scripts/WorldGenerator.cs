@@ -10,14 +10,57 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Transform endPoint;
     [SerializeField] Transform[] buildingSpawnPoints;
     [SerializeField] Transform[] streetLightSpawnPoints;
+    [SerializeField] Transform[] lanes;
     [SerializeField] GameObject[] roadBlocks;
     [SerializeField] GameObject[] buildings;
     [SerializeField] GameObject streetLight;
+    [SerializeField] Threat[] threats;
 
     [Header("Settings")]
     [SerializeField] float envMoveSpeed = 4;
-    [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f,0.8f);
+    [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f, 0.8f);
+    [SerializeField] Vector3 occupationDetectionHalfExtend;
     Vector3 moveDirection;
+    bool isPositionOccupied(Vector3 position)
+    {
+        Collider[] colliders = Physics.OverlapBox(position, occupationDetectionHalfExtend);
+        foreach(Collider collider in colliders)
+        {
+            if(collider.gameObject.tag == "Threat")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool GetRandomSpawnPoint(out Vector3 spawnPoint)
+    {
+        Vector3[] spawPoints = GetAvalibleSpawnPoints();
+        if (spawPoints.Length == 0)
+        {
+            spawnPoint = new Vector3(0, 0, 0);
+            return false;
+        }
+
+        int pick = Random.Range(0, spawPoints.Length);
+        spawnPoint = spawPoints[pick];
+        return true;
+    }
+
+    Vector3[] GetAvalibleSpawnPoints()
+    {
+        List<Vector3> AvailibleSpawnPoints = new List<Vector3>();
+        foreach (Transform spawnTrans in lanes)
+        {
+            Vector3 spawnPoint = spawnTrans.position + new Vector3(0, 0, startPoint.position.z);
+            if (!isPositionOccupied(spawnPoint))
+            {
+                AvailibleSpawnPoints.Add(spawnPoint);
+            }
+        }
+        return AvailibleSpawnPoints.ToArray();
+    }
     void Start()
     {
         Vector3 nextBlockPosition = startPoint.position;
@@ -29,7 +72,31 @@ public class WorldGenerator : MonoBehaviour
             GameObject newBlock = SpawnNewBlock(nextBlockPosition, moveDirection);
             float bloackLeanth = newBlock.GetComponent<Renderer>().bounds.size.z;
             nextBlockPosition += moveDirection * bloackLeanth;
+        }
 
+        StartSpawnThreats();
+    }
+
+    private void StartSpawnThreats()
+    {
+        foreach (Threat threat in threats)
+        {
+            StartCoroutine(SpawnThreatCourutine(threat));
+        }
+    }
+
+    IEnumerator SpawnThreatCourutine(Threat threatToSpawn)
+    {
+        while (true)
+        {
+            if (GetRandomSpawnPoint(out Vector3 spawnPoint))
+            {
+                Threat newThreat = Instantiate(threatToSpawn, spawnPoint, Quaternion.identity);
+                newThreat.GetMovementComponent().SetDestination(endPoint.position);
+                newThreat.GetMovementComponent().SetMoveDir(moveDirection);
+            }
+
+            yield return new WaitForSeconds(threatToSpawn.SpawnInterval);
         }
     }
 
@@ -56,7 +123,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void SpawnStreetLights(GameObject parentBlock)
     {
-        foreach(Transform streetLightSpawnPoint in streetLightSpawnPoints)
+        foreach (Transform streetLightSpawnPoint in streetLightSpawnPoints)
         {
             Vector3 spawnLoc = parentBlock.transform.position + (streetLightSpawnPoint.position - startPoint.position);
             Quaternion spawnRot = Quaternion.LookRotation((startPoint.position - streetLightSpawnPoint.position).normalized, Vector3.up);
@@ -83,11 +150,11 @@ public class WorldGenerator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject != null)
+        if (other.gameObject != null)
         {
-            GameObject newBlock = SpawnNewBlock(other.transform.position,moveDirection);
-            float newBlockHalfWidth = newBlock.GetComponent<Renderer>().bounds.size.z/2f;
-            float previousBlockHalfWidth = other.GetComponent<Renderer>().bounds.size.z/2f;
+            GameObject newBlock = SpawnNewBlock(other.transform.position, moveDirection);
+            float newBlockHalfWidth = newBlock.GetComponent<Renderer>().bounds.size.z / 2f;
+            float previousBlockHalfWidth = other.GetComponent<Renderer>().bounds.size.z / 2f;
 
             Vector3 newBlockSpawnOffset = -(newBlockHalfWidth + previousBlockHalfWidth) * moveDirection;
             newBlock.transform.position += newBlockSpawnOffset;
