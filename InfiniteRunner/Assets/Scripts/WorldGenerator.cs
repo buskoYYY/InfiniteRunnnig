@@ -150,7 +150,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject != null)
+        if (other.gameObject != null && other.gameObject.tag == "RoadBlock")
         {
             GameObject newBlock = SpawnNewBlock(other.transform.position, moveDirection);
             float newBlockHalfWidth = newBlock.GetComponent<Renderer>().bounds.size.z / 2f;
