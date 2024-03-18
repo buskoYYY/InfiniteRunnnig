@@ -17,16 +17,15 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Threat[] threats;
 
     [Header("Settings")]
-    [SerializeField] float envMoveSpeed = 4;
     [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f, 0.8f);
     [SerializeField] Vector3 occupationDetectionHalfExtend;
     Vector3 moveDirection;
     bool isPositionOccupied(Vector3 position)
     {
         Collider[] colliders = Physics.OverlapBox(position, occupationDetectionHalfExtend);
-        foreach(Collider collider in colliders)
+        foreach (Collider collider in colliders)
         {
-            if(collider.gameObject.tag == "Threat")
+            if (collider.gameObject.tag == "Threat")
             {
                 return true;
             }
@@ -110,11 +109,9 @@ public class WorldGenerator : MonoBehaviour
 
         if (movementComp != null)
         {
-            movementComp.SetMoveSpeed(envMoveSpeed);
             movementComp.SetMoveDir(moveDirection);
             movementComp.SetDestination(endPoint.position);
         }
-
         SpawnBuilding(newBlock);
         SpawnStreetLights(newBlock);
 
@@ -150,7 +147,7 @@ public class WorldGenerator : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject != null && other.gameObject.tag == "RoadBlock")
+        if (other.gameObject != null && other.gameObject.tag == "RoadModule")
         {
             GameObject newBlock = SpawnNewBlock(other.transform.position, moveDirection);
             float newBlockHalfWidth = newBlock.GetComponent<Renderer>().bounds.size.z / 2f;

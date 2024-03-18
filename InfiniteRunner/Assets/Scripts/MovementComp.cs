@@ -5,9 +5,19 @@ using UnityEngine;
 public class MovementComp : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] float moveSpeed = 20f;
+    float moveSpeed = 20f;
     Vector3 moveDirection = Vector3.forward;
     Vector3 destination;
+
+    private void Start()
+    {
+        SpeedController speedController = FindObjectOfType<SpeedController>();
+        if (speedController != null )
+        {
+            speedController.onGlobalSpeedChanged += SetMoveSpeed;
+            SetMoveSpeed(speedController.GetGlobalSpeed());
+        }
+    }
 
     public void SetMoveDir(Vector3 dir)
     {
