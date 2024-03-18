@@ -13,6 +13,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Transform[] lanes;
     [SerializeField] GameObject[] roadBlocks;
     [SerializeField] GameObject[] buildings;
+    [SerializeField] GameObject[] pickUps;
     [SerializeField] GameObject streetLight;
     [SerializeField] Threat[] threats;
 
@@ -73,7 +74,10 @@ public class WorldGenerator : MonoBehaviour
             nextBlockPosition += moveDirection * bloackLeanth;
         }
 
-        StartSpawnThreats();
+        //StartSpawnThreats();
+        GameObject newPickUp = Instantiate(pickUps[0], startPoint.position, Quaternion.identity);
+        newPickUp.GetComponent<MovementComp>().SetDestination(endPoint.position);
+        newPickUp.GetComponent<MovementComp>().SetMoveDir(moveDirection);
     }
 
     private void StartSpawnThreats()

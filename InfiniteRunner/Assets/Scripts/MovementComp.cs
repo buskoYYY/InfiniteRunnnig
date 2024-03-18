@@ -5,9 +5,9 @@ using UnityEngine;
 public class MovementComp : MonoBehaviour
 {
     [Header("Settings")]
-    float moveSpeed = 20f;
-    Vector3 moveDirection = Vector3.forward;
-    Vector3 destination;
+    [SerializeField] float moveSpeed = 20f;
+    [SerializeField] Vector3 moveDirection = Vector3.forward;
+    [SerializeField] Vector3 destination;
 
     private void Start()
     {

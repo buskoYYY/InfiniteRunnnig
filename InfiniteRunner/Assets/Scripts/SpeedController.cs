@@ -9,14 +9,28 @@ public class SpeedController : MonoBehaviour
 
     public event OnGlobalSpeedChanged onGlobalSpeedChanged;
 
-    public void SetGlobalSpeed(float newSpeed)
+    public void ChangeGlobalSpeed(float speedChange, float duration)
     {
-        globalSpeed = newSpeed;
-        onGlobalSpeedChanged?.Invoke(globalSpeed);
+        globalSpeed += speedChange;
+        InformSpeedChange();
+        StartCoroutine(RemoveSpeedChange(speedChange, duration));
+
     }
 
     public float GetGlobalSpeed()
     {
         return globalSpeed;
+    }
+
+    IEnumerator RemoveSpeedChange(float speedChangeAmount, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        globalSpeed -= speedChangeAmount;
+        InformSpeedChange();
+    }
+
+    private void InformSpeedChange()
+    {
+        onGlobalSpeedChanged?.Invoke(globalSpeed);
     }
 }
