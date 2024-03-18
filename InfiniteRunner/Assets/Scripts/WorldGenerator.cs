@@ -21,12 +21,12 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f, 0.8f);
     [SerializeField] Vector3 occupationDetectionHalfExtend;
     Vector3 moveDirection;
-    bool isPositionOccupied(Vector3 position)
+    bool isPositionOccupied(Vector3 position, string OccupationCheckTag)
     {
         Collider[] colliders = Physics.OverlapBox(position, occupationDetectionHalfExtend);
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.tag == "Threat")
+            if (collider.gameObject.tag == OccupationCheckTag)
             {
                 return true;
             }
@@ -34,9 +34,9 @@ public class WorldGenerator : MonoBehaviour
         return false;
     }
 
-    bool GetRandomSpawnPoint(out Vector3 spawnPoint)
+    bool GetRandomSpawnPoint(out Vector3 spawnPoint, string OccupationCheckTag)
     {
-        Vector3[] spawPoints = GetAvalibleSpawnPoints();
+        Vector3[] spawPoints = GetAvalibleSpawnPoints(OccupationCheckTag);
         if (spawPoints.Length == 0)
         {
             spawnPoint = new Vector3(0, 0, 0);
@@ -48,13 +48,13 @@ public class WorldGenerator : MonoBehaviour
         return true;
     }
 
-    Vector3[] GetAvalibleSpawnPoints()
+    Vector3[] GetAvalibleSpawnPoints( string OccupationCheckTag)
     {
         List<Vector3> AvailibleSpawnPoints = new List<Vector3>();
         foreach (Transform spawnTrans in lanes)
         {
             Vector3 spawnPoint = spawnTrans.position + new Vector3(0, 0, startPoint.position.z);
-            if (!isPositionOccupied(spawnPoint))
+            if (!isPositionOccupied(spawnPoint, OccupationCheckTag))
             {
                 AvailibleSpawnPoints.Add(spawnPoint);
             }
@@ -98,7 +98,7 @@ public class WorldGenerator : MonoBehaviour
     {
         while (true)
         {
-            if (GetRandomSpawnPoint(out Vector3 spawnPoint))
+            if (GetRandomSpawnPoint(out Vector3 spawnPoint, elements.gameObject.tag))
             {
                 Spawnable newThreat = Instantiate(elements, spawnPoint, Quaternion.identity);
                 newThreat.GetMovementComponent().SetDestination(endPoint.position);

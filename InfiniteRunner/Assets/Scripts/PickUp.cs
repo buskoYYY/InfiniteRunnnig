@@ -26,5 +26,14 @@ public class PickUp : Spawnable
             }
         Destroy(gameObject);
         }
+
+        if(other.gameObject.tag == "Threat")
+        {
+            Collider col = gameObject.GetComponent<Collider>();
+            if(col != null)
+            {
+                transform.position = col.bounds.center + (col.bounds.extents.y + gameObject.GetComponent<Collider>().bounds.center.y) * Vector3.up;
+            }
+        }
     }
 }

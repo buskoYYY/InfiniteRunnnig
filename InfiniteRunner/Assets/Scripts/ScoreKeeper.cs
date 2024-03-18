@@ -13,7 +13,6 @@ public class ScoreKeeper : MonoBehaviour
     public void ChangeScore(int amt)
     {
         score += amt;
-        Debug.Log("Score" + score);
         onScoreChanged?.Invoke(score);
     }
 }

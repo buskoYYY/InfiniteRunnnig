@@ -11,7 +11,7 @@ public class ArraySpawner : MonoBehaviour
     {
        for(int i = 1; i < ammount; i++)
         {
-            Vector3 spawnPOsition = transform.position + transform.forward * gap * i;
+            Vector3 spawnPOsition = new Vector3(transform.position.x, 0f, transform.position.z) + transform.forward * gap * i;
             GameObject nextCoin = Instantiate(gameObject, spawnPOsition, Quaternion.identity);
             nextCoin.GetComponent<ArraySpawner>().enabled = false;
         }
