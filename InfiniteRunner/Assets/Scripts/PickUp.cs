@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public class PickUp : Spawnable
 {
     [Header("Settings")]
     [SerializeField] private int scoreEffect;
@@ -11,7 +11,7 @@ public class PickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
             SpeedController speedController = FindObjectOfType<SpeedController>();
             if(speedController != null && speedEffect != 0)

@@ -13,7 +13,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Transform[] lanes;
     [SerializeField] GameObject[] roadBlocks;
     [SerializeField] GameObject[] buildings;
-    [SerializeField] GameObject[] pickUps;
+    [SerializeField] PickUp [] pickUps;
     [SerializeField] GameObject streetLight;
     [SerializeField] Threat[] threats;
 
@@ -74,32 +74,38 @@ public class WorldGenerator : MonoBehaviour
             nextBlockPosition += moveDirection * bloackLeanth;
         }
 
-        //StartSpawnThreats();
-        GameObject newPickUp = Instantiate(pickUps[0], startPoint.position, Quaternion.identity);
+        StartSpawnElements();
+
+        PickUp newPickUp = Instantiate(pickUps[0], startPoint.position, Quaternion.identity);
         newPickUp.GetComponent<MovementComp>().SetDestination(endPoint.position);
         newPickUp.GetComponent<MovementComp>().SetMoveDir(moveDirection);
     }
 
-    private void StartSpawnThreats()
+    private void StartSpawnElements()
     {
         foreach (Threat threat in threats)
         {
-            StartCoroutine(SpawnThreatCourutine(threat));
+            StartCoroutine(SpawnElementsCourutine(threat));
+        }
+
+        foreach (PickUp pickUp in pickUps)
+        {
+            StartCoroutine(SpawnElementsCourutine(pickUp));
         }
     }
 
-    IEnumerator SpawnThreatCourutine(Threat threatToSpawn)
+    IEnumerator SpawnElementsCourutine(Spawnable elements)
     {
         while (true)
         {
             if (GetRandomSpawnPoint(out Vector3 spawnPoint))
             {
-                Threat newThreat = Instantiate(threatToSpawn, spawnPoint, Quaternion.identity);
+                Spawnable newThreat = Instantiate(elements, spawnPoint, Quaternion.identity);
                 newThreat.GetMovementComponent().SetDestination(endPoint.position);
                 newThreat.GetMovementComponent().SetMoveDir(moveDirection);
             }
 
-            yield return new WaitForSeconds(threatToSpawn.SpawnInterval);
+            yield return new WaitForSeconds(elements.SpawnInterval);
         }
     }
 
