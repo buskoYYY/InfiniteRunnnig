@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2579808524564274191}
   - component: {fileID: 69839418900138504}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collision
   m_TagString: Threat
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 3199926722735685014}
   - component: {fileID: 7289763334040866477}
   - component: {fileID: 8320454066037998933}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Threat
   m_TagString: Threat
   m_Icon: {fileID: 0}
@@ -114,3 +114,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 20
+  moveDirection: {x: 0, y: 0, z: 1}
+  destination: {x: 0, y: 0, z: 0}

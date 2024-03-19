@@ -29,6 +29,13 @@ public class MovementComp : MonoBehaviour
         moveSpeed = speed;
     }
 
+    public void CopyFrom(MovementComp other)
+    {
+        SetMoveSpeed(other.moveSpeed);
+        SetMoveDir(other.moveDirection);
+        SetDestination(other.destination);
+    }
+
     public void SetDestination(Vector3 newDestination)
     {
         destination = newDestination;
