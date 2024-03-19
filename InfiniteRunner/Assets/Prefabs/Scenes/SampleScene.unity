@@ -354,7 +354,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   moveSpeed: 20
-  jumpHight: 2.5
+  jumpHight: 2.75
   groundCheckRadius: 0.2
 --- !u!4 &632182728 stripped
 Transform:
@@ -860,8 +860,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1056,7 +1056,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: threats.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: lanes.Array.data[0]
@@ -1073,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: pickUps.Array.data[0]
       value: 
-      objectReference: {fileID: 7677657834019676882, guid: b8c348fae7ac5bb409b0d614ea1a3ba4, type: 3}
+      objectReference: {fileID: 8798750995622168424, guid: b8c348fae7ac5bb409b0d614ea1a3ba4, type: 3}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: threats.Array.data[0]
       value: 
@@ -1083,12 +1083,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6091051217529173157, guid: 547f422870816684e91db301ef6a590c, type: 3}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: threats.Array.data[2]
+      value: 
+      objectReference: {fileID: 7024035170740913377, guid: 39336c14f33eb59439c7dfa8313eab98, type: 3}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: occupationDetectionHalfExtend.x
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: occupationDetectionHalfExtend.y
-      value: 0.2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: occupationDetectionHalfExtend.z

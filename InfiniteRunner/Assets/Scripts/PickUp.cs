@@ -8,13 +8,16 @@ public class PickUp : Spawnable
     [SerializeField] private int scoreEffect;
     [SerializeField] private float speedEffect;
     [SerializeField] private float speedEffectDuration;
+    bool isAdjacted = false;
+
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             SpeedController speedController = FindObjectOfType<SpeedController>();
-            if(speedController != null && speedEffect != 0)
+            if (speedController != null && speedEffect != 0)
             {
                 speedController.ChangeGlobalSpeed(speedEffect, speedEffectDuration);
             }
@@ -24,15 +27,16 @@ public class PickUp : Spawnable
             {
                 scoreKeeper.ChangeScore(scoreEffect);
             }
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
 
-        if(other.gameObject.tag == "Threat")
+        if (other.gameObject.tag == "Threat" && !isAdjacted)
         {
-            Collider col = gameObject.GetComponent<Collider>();
-            if(col != null)
+            Collider col = other.GetComponent<Collider>();
+            if (col != null)
             {
                 transform.position = col.bounds.center + (col.bounds.extents.y + gameObject.GetComponent<Collider>().bounds.center.y) * Vector3.up;
+                isAdjacted = true;
             }
         }
     }

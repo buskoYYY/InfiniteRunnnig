@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] LayerMask groundCheckMask;
     private Animator playerAnimator;
+    private Camera playerCamera;
 
 
     [Header("Settings")]
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpHight = 2.5f;
     [SerializeField][Range(0, 1)] float groundCheckRadius = 0.2f;
     private Vector3 destination;
+    private Vector3 playerCameraOffset;
     private int currentIndex;
 
     private void OnEnable()
@@ -56,6 +58,9 @@ public class Player : MonoBehaviour
         }
 
         playerAnimator = GetComponent<Animator>();
+
+        playerCamera = Camera.main;
+        playerCameraOffset = playerCamera.transform.position - transform.position;
     }
 
     private void JumpPerformed(InputAction.CallbackContext context)
@@ -117,9 +122,12 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isOnGround", true);
 
         float transformX = Mathf.Lerp(transform.position.x, destination.x, moveSpeed * Time.deltaTime);
-        transform.position = new Vector3(transformX, transform.position.y, transform.position.z); // движение по позициям y и z будет согласно физике
+        transform.position = new Vector3(transformX, transform.position.y, transform.position.z); // движение по позициям y и z будет согласно физике   
     }
-
+    private void LateUpdate()
+    {
+        playerCamera.transform.position = transform.position + playerCameraOffset;
+    }
     private bool IsOnGround()
     {
         return Physics.CheckSphere(groundCheckTransform.position, groundCheckRadius, groundCheckMask);
