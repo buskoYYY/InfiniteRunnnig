@@ -21,18 +21,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f, 0.8f);
     [SerializeField] Vector3 occupationDetectionHalfExtend;
     Vector3 moveDirection;
-    bool isPositionOccupied(Vector3 position, string OccupationCheckTag)
-    {
-        Collider[] colliders = Physics.OverlapBox(position, occupationDetectionHalfExtend);
-        foreach (Collider collider in colliders)
-        {
-            if (collider.gameObject.tag == OccupationCheckTag)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     bool GetRandomSpawnPoint(out Vector3 spawnPoint, string OccupationCheckTag)
     {
@@ -54,7 +43,7 @@ public class WorldGenerator : MonoBehaviour
         foreach (Transform spawnTrans in lanes)
         {
             Vector3 spawnPoint = spawnTrans.position + new Vector3(0, 0, startPoint.position.z);
-            if (!isPositionOccupied(spawnPoint, OccupationCheckTag))
+            if (!GamePlayStatic.IsPositionOccupied(spawnPoint,occupationDetectionHalfExtend, OccupationCheckTag))
             {
                 AvailibleSpawnPoints.Add(spawnPoint);
             }
