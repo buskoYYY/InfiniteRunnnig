@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 20f;
     [SerializeField] float jumpHight = 2.5f;
     [SerializeField][Range(0, 1)] float groundCheckRadius = 0.2f;
+    [SerializeField] Vector3 blockageCheckHalfExtented;
+    [SerializeField] string blockageCheckTag = "Threat";
     private Vector3 destination;
     private Vector3 playerCameraOffset;
     private int currentIndex;
@@ -84,32 +86,26 @@ public class Player : MonoBehaviour
         if (!IsOnGround()) { return; }
 
         float inputValue = context.ReadValue<float>(); // будет равняться -1, 1
-
+        int goalIndex = currentIndex;
         if (inputValue > 0f)
         {
-            MoveRight();
+            if (goalIndex == laneTransform.Length - 1) { return; }
+            goalIndex++;
         }
 
         else if (inputValue < 0f)
         {
-            MoveLeft();
+            if (currentIndex == 0) { return; }
+            goalIndex--;
         }
-    }
 
-    private void MoveLeft()
-    {
-        if (currentIndex == 0) { return; }
-
-        currentIndex--;
-        destination = laneTransform[currentIndex].position;
-    }
-
-    private void MoveRight()
-    {
-        if (currentIndex == laneTransform.Length - 1) { return; }
-
-        currentIndex++;
-        destination = laneTransform[currentIndex].position;
+        Vector3 goalPos = laneTransform[goalIndex].position;
+        if (GamePlayStatic.IsPositionOccupied(goalPos, blockageCheckHalfExtented, blockageCheckTag))
+        {
+            return;
+        }
+        currentIndex = goalIndex;
+        destination = goalPos;
     }
 
     void Update()
@@ -117,9 +113,11 @@ public class Player : MonoBehaviour
         if (!IsOnGround())
         {
             playerAnimator.SetBool("isOnGround", false);
-            return;
         }
-        playerAnimator.SetBool("isOnGround", true);
+        else
+        {
+            playerAnimator.SetBool("isOnGround", true);
+        }
 
         float transformX = Mathf.Lerp(transform.position.x, destination.x, moveSpeed * Time.deltaTime);
         transform.position = new Vector3(transformX, transform.position.y, transform.position.z); // движение по позициям y и z будет согласно физике   

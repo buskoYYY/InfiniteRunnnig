@@ -2,18 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
+using System;
+using Random = UnityEngine.Random;
 
 public class WorldGenerator : MonoBehaviour
 {
+    [Serializable]
+    public struct RoadSpawnDefinition
+    {
+        public GameObject roadBlock;
+        public float weight;
+    }
+
     [Header("Elements")]
     [SerializeField] Transform startPoint;
     [SerializeField] Transform endPoint;
     [SerializeField] Transform[] buildingSpawnPoints;
     [SerializeField] Transform[] streetLightSpawnPoints;
     [SerializeField] Transform[] lanes;
-    [SerializeField] GameObject[] roadBlocks;
+    [SerializeField] RoadSpawnDefinition[] roadBlocks;
     [SerializeField] GameObject[] buildings;
-    [SerializeField] PickUp [] pickUps;
+    [SerializeField] PickUp[] pickUps;
     [SerializeField] GameObject streetLight;
     [SerializeField] Threat[] threats;
 
@@ -21,7 +30,7 @@ public class WorldGenerator : MonoBehaviour
     [SerializeField] Vector2 buildingSpawnScaleRange = new Vector2(0.6f, 0.8f);
     [SerializeField] Vector3 occupationDetectionHalfExtend;
     Vector3 moveDirection;
-
+    float roadWeightTotalWeight;
 
     bool GetRandomSpawnPoint(out Vector3 spawnPoint, string OccupationCheckTag)
     {
@@ -37,13 +46,13 @@ public class WorldGenerator : MonoBehaviour
         return true;
     }
 
-    Vector3[] GetAvalibleSpawnPoints( string OccupationCheckTag)
+    Vector3[] GetAvalibleSpawnPoints(string OccupationCheckTag)
     {
         List<Vector3> AvailibleSpawnPoints = new List<Vector3>();
         foreach (Transform spawnTrans in lanes)
         {
             Vector3 spawnPoint = spawnTrans.position + new Vector3(0, 0, startPoint.position.z);
-            if (!GamePlayStatic.IsPositionOccupied(spawnPoint,occupationDetectionHalfExtend, OccupationCheckTag))
+            if (!GamePlayStatic.IsPositionOccupied(spawnPoint, occupationDetectionHalfExtend, OccupationCheckTag))
             {
                 AvailibleSpawnPoints.Add(spawnPoint);
             }
@@ -52,6 +61,13 @@ public class WorldGenerator : MonoBehaviour
     }
     void Start()
     {
+        roadWeightTotalWeight = 0;
+
+        for (int i = 0; i < roadBlocks.Length; i++)
+        {
+            roadWeightTotalWeight += roadBlocks[i].weight;
+        }
+
         Vector3 nextBlockPosition = startPoint.position;
         float endPointDistance = Vector3.Distance(startPoint.position, endPoint.position);
         moveDirection = (endPoint.position - startPoint.position).normalized;
@@ -100,8 +116,7 @@ public class WorldGenerator : MonoBehaviour
 
     private GameObject SpawnNewBlock(Vector3 spawnPos, Vector3 moveDirection)
     {
-        int pick = Random.Range(0, roadBlocks.Length);
-        GameObject pickedBlock = roadBlocks[pick];
+        GameObject pickedBlock = GetRandomBlockToSpawn();
         GameObject newBlock = Instantiate(pickedBlock);
         newBlock.transform.position = spawnPos;
         MovementComp movementComp = newBlock.GetComponent<MovementComp>();
@@ -115,6 +130,24 @@ public class WorldGenerator : MonoBehaviour
         SpawnStreetLights(newBlock);
 
         return newBlock;
+    }
+
+    private GameObject GetRandomBlockToSpawn()
+    {
+        float pickWeight = Random.Range(0, roadWeightTotalWeight);
+        float totalWeight = 0;
+        int pick = 0;
+
+        for (int i = 0; i < roadBlocks.Length; i++)
+        {
+            totalWeight += roadBlocks[i].weight;
+            if (pickWeight < totalWeight)
+            {
+                pick = i;
+                break;
+            }
+        }
+        return roadBlocks[pick].roadBlock;
     }
 
     private void SpawnStreetLights(GameObject parentBlock)
