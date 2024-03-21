@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.735
       objectReference: {fileID: 0}
+    - target: {fileID: 7289763334040866477, guid: 3e3098ff2c6164d479172fe7a3f81091, type: 3}
+      propertyPath: spawnInterval
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7635973711007441875, guid: 3e3098ff2c6164d479172fe7a3f81091, type: 3}
       propertyPath: m_Name
       value: Train

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementComp: {fileID: 7175773267595448418}
-  spawnInterval: 0.4
+  spawnInterval: 5
   scoreEffect: -2
   speedEffect: -3
   speedEffectDuration: 3

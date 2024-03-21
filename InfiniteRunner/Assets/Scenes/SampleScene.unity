@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 338927863}
   - component: {fileID: 338927864}
   - component: {fileID: 338927865}
+  - component: {fileID: 338927866}
   m_Layer: 0
   m_Name: GameMode
   m_TagString: Untagged
@@ -295,6 +296,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b20bb5346f45df84fbe3bb8e1be50291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &338927866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338927861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979e4e80525c2ca4f82b936f033b0e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &391419396
@@ -1082,7 +1095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: pickUps.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: threats.Array.size
@@ -1104,6 +1117,14 @@ PrefabInstance:
       propertyPath: pickUps.Array.data[0]
       value: 
       objectReference: {fileID: 8798750995622168424, guid: b8c348fae7ac5bb409b0d614ea1a3ba4, type: 3}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: pickUps.Array.data[1]
+      value: 
+      objectReference: {fileID: 3944013702172403423, guid: 9b368f1effb56fa469abb141ceab42ce, type: 3}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: pickUps.Array.data[2]
+      value: 
+      objectReference: {fileID: 8798750995622168424, guid: 47f9d1c47e944ba4cb9600a60cf2f01c, type: 3}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: roadBlocks.Array.size
       value: 2

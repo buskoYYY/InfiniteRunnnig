@@ -35,7 +35,7 @@ public class PickUp : Spawnable
             Collider col = other.GetComponent<Collider>();
             if (col != null)
             {
-                transform.position = col.bounds.center + (col.bounds.extents.y + gameObject.GetComponent<Collider>().bounds.center.y) * Vector3.up;
+                transform.position = col.bounds.center + (col.bounds.extents.y ) * Vector3.up;
                 isAdjacted = true;
             }
         }

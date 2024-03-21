@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Threat
   - RoadModule
+  - PickUp
+  - NoSpawn
   layers:
   - Default
   - TransparentFX
