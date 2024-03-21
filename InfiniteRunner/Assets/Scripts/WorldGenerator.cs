@@ -74,7 +74,19 @@ public class WorldGenerator : MonoBehaviour
 
         while (Vector3.Distance(startPoint.position, nextBlockPosition) < endPointDistance)
         {
-            GameObject newBlock = SpawnNewBlock(nextBlockPosition, moveDirection);
+            GameObject pickedBlock = roadBlocks[0].roadBlock;
+            GameObject newBlock = Instantiate(pickedBlock);
+            newBlock.transform.position = nextBlockPosition;
+            MovementComp movementComp = newBlock.GetComponent<MovementComp>();
+
+            if (movementComp != null)
+            {
+                movementComp.SetMoveDir(moveDirection);
+                movementComp.SetDestination(endPoint.position);
+            }
+            SpawnBuilding(newBlock);
+            SpawnStreetLights(newBlock);
+
             float bloackLeanth = newBlock.GetComponent<Renderer>().bounds.size.z;
             nextBlockPosition += moveDirection * bloackLeanth;
         }

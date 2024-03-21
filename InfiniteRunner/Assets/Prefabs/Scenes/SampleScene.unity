@@ -356,6 +356,8 @@ MonoBehaviour:
   moveSpeed: 20
   jumpHight: 2.75
   groundCheckRadius: 0.2
+  blockageCheckHalfExtented: {x: 0.5, y: 0.5, z: 0.25}
+  blockageCheckTag: Threat
 --- !u!4 &632182728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ce5762145e8637f40b72246b1ef29e97, type: 3}
@@ -408,7 +410,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 2
   m_Constraints: 114
   m_CollisionDetection: 0
 --- !u!95 &632182731
@@ -1103,6 +1105,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8798750995622168424, guid: b8c348fae7ac5bb409b0d614ea1a3ba4, type: 3}
     - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: roadBlocks.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: threats.Array.data[0]
       value: 
       objectReference: {fileID: 8495918330590317636, guid: 9565c10aa0d317a4dba5a111916f1c79, type: 3}
@@ -1126,6 +1132,22 @@ PrefabInstance:
       propertyPath: occupationDetectionHalfExtend.z
       value: 3.2971969
       objectReference: {fileID: 0}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: roadBlocks.Array.data[0].weight
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: roadBlocks.Array.data[1].weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: roadBlocks.Array.data[0].roadBlock
+      value: 
+      objectReference: {fileID: 211123049419007260, guid: d82a110112794a845a88425a14fbc4ac, type: 3}
+    - target: {fileID: 37544755355557050, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: roadBlocks.Array.data[1].roadBlock
+      value: 
+      objectReference: {fileID: 211123049419007260, guid: 651d4c8118b00a141974d4d77544a8d1, type: 3}
     - target: {fileID: 1450488047462438335, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: m_LocalPosition.z
       value: 100
@@ -1173,6 +1195,10 @@ PrefabInstance:
     - target: {fileID: 8726898076747455924, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062923466528789611, guid: 2e6ab3efdd577a34d81b9f7c39fc57d6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

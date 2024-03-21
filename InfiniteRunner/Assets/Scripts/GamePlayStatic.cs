@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class GamePlayStatic
 {
+    static GameMode gameMode;
     public static bool IsPositionOccupied(Vector3 position, Vector3 detectionHalfExtend, string OccupationCheckTag)
     {
         {
@@ -17,5 +18,14 @@ public static class GamePlayStatic
             }
             return false;
         }
+    }
+
+    public static GameMode GetGameMode()
+    {
+        if(gameMode == null)
+        {
+            gameMode = GameObject.FindObjectOfType<GameMode>();
+        }
+        return gameMode;
     }
 }
