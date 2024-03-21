@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] Transform[] laneTransform;
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] LayerMask groundCheckMask;
+    [SerializeField] InGameUI playerUI;
     private Animator playerAnimator;
     private Camera playerCamera;
 
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
                                                               // canceled - если кнопка отпущена
                                                               //  событие (event)
         playerInput.gamePlay.Jump.performed += JumpPerformed;
+        playerInput.gamePlay.Pause.performed += TogglePause;
 
         for (int i = 0; i < laneTransform.Length; i++)
         {
@@ -63,6 +65,16 @@ public class Player : MonoBehaviour
 
         playerCamera = Camera.main;
         playerCameraOffset = playerCamera.transform.position - transform.position;
+    }
+
+    private void TogglePause(InputAction.CallbackContext context)
+    {
+        GameMode gameMode =  GamePlayStatic.GetGameMode();
+        if(gameMode != null)
+        {
+            gameMode.TogglePause();
+        }
+        playerUI.SignalPause(gameMode.IsGamePaused());
     }
 
     private void JumpPerformed(InputAction.CallbackContext context)

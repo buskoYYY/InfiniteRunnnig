@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,23 @@ public class GameMode : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+    }
+
+    internal void TogglePause()
+    {
+        if (IsGamePaused())
+        {
+            SetGamePaused(false);
+        }
+        else
+        {
+            SetGamePaused(true);
+        }
+
+    }
+
+    public bool IsGamePaused()
+    {
+        return Time.timeScale == 0;
     }
 }

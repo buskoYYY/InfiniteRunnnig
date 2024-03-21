@@ -8,6 +8,10 @@ public class InGameUI : MonoBehaviour
 {
     [Header ("Elements")]
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] UISwitcher menuSwitcher;
+    [SerializeField] Transform gameUI;
+    [SerializeField] Transform pauseUI;
+    [SerializeField] Transform gameOverUI;
     void Start()
     {
         ScoreKeeper scoreKeeper = FindObjectOfType<ScoreKeeper>();
@@ -22,8 +26,15 @@ public class InGameUI : MonoBehaviour
         scoreText.SetText("Score: " + newVal);
     }
 
-    void Update()
+    internal void SignalPause(bool isGamePaused)
     {
-        
+        if(isGamePaused)
+        {
+            menuSwitcher.SetActiveUI(pauseUI);
+        }
+        else
+        {
+            menuSwitcher.SetActiveUI(gameUI);
+        }
     }
 }
