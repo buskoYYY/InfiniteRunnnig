@@ -27,7 +27,7 @@ public class PickUp : Spawnable
             {
                 scoreKeeper.ChangeScore(scoreEffect);
             }
-            Destroy(gameObject);
+            PickUpBy(other.gameObject);
         }
 
         if (other.gameObject.tag == "Threat" && !isAdjacted)
@@ -39,5 +39,10 @@ public class PickUp : Spawnable
                 isAdjacted = true;
             }
         }
+    }
+
+    protected virtual void PickUpBy(GameObject picker)
+    {
+        Destroy(gameObject);
     }
 }
