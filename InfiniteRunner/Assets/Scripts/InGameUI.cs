@@ -37,4 +37,20 @@ public class InGameUI : MonoBehaviour
             menuSwitcher.SetActiveUI(gameUI);
         }
     }
+
+    public void ResumeGame()
+    {
+        GamePlayStatic.GetGameMode().SetGamePaused(false);
+        menuSwitcher.SetActiveUI(gameUI);
+    }
+
+    public void BackToMainMenu()
+    {
+        GamePlayStatic.GetGameMode().BackToMainMenu();
+    }
+
+    public void RestartCurrentLevel()
+    {
+        GamePlayStatic.GetGameMode().RestartCurrentLevel();
+    }
 }

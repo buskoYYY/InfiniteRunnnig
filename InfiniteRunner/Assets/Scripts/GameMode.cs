@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMode : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] int mainMenuSceneBuildIndex;
     public void GameOver()
     {
         SetGamePaused(true);
@@ -38,5 +41,21 @@ public class GameMode : MonoBehaviour
     public bool IsGamePaused()
     {
         return Time.timeScale == 0;
+    }
+
+    public void BackToMainMenu()
+    {
+        GoToScene(mainMenuSceneBuildIndex);
+    }
+
+    private void GoToScene(int sceneBuidIndex)
+    {
+        SetGamePaused(false);
+        SceneManager.LoadScene(sceneBuidIndex);
+    }
+
+    internal void RestartCurrentLevel()
+    {
+        GoToScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
