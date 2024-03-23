@@ -69,12 +69,12 @@ public class Player : MonoBehaviour
 
     private void TogglePause(InputAction.CallbackContext context)
     {
-        GameMode gameMode =  GamePlayStatic.GetGameMode();
-        if(gameMode != null)
+        GameMode gameMode = GamePlayStatic.GetGameMode();
+        if (gameMode != null && !gameMode.IsGameOver())
         {
             gameMode.TogglePause();
+            playerUI.SignalPause(gameMode.IsGamePaused());
         }
-        playerUI.SignalPause(gameMode.IsGamePaused());
     }
 
     private void JumpPerformed(InputAction.CallbackContext context)

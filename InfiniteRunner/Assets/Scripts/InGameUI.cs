@@ -19,6 +19,13 @@ public class InGameUI : MonoBehaviour
         {
             scoreKeeper.onScoreChanged += UpdateScoreText;
         }
+
+        GamePlayStatic.GetGameMode().onGameOver += OnGameOver;
+    }
+
+    private void OnGameOver()
+    {
+        menuSwitcher.SetActiveUI(gameOverUI);
     }
 
     private void UpdateScoreText(int newVal)

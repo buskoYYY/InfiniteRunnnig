@@ -4,17 +4,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameMode : MonoBehaviour
 {
+    
+    public delegate void OnGameOver();
+
     [Header("Settings")]
     [SerializeField] int mainMenuSceneBuildIndex;
+    [SerializeField] int firsSceneIndex;
+
+    public event OnGameOver onGameOver;
+
+    [Header("Elements")]
+    private bool isGameOver = false;
     public void GameOver()
     {
         SetGamePaused(true);
+        isGameOver = true;
+        onGameOver?.Invoke();
     }
 
     public void SetGamePaused(bool isPaused)
     {
+        if(isGameOver) { return; }
+        
         if (isPaused)
         {
             Time.timeScale = 0;
@@ -45,17 +59,33 @@ public class GameMode : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        GoToScene(mainMenuSceneBuildIndex);
+        LoadScene(mainMenuSceneBuildIndex);
     }
 
-    private void GoToScene(int sceneBuidIndex)
+    private void LoadScene(int sceneBuidIndex)
     {
+        isGameOver = false;
         SetGamePaused(false);
         SceneManager.LoadScene(sceneBuidIndex);
     }
 
     internal void RestartCurrentLevel()
     {
-        GoToScene(SceneManager.GetActiveScene().buildIndex);
+        LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    internal bool IsGameOver()
+    {
+        return isGameOver;
+    }
+
+    internal void LoadFirstLevel()
+    {
+        LoadScene(firsSceneIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
