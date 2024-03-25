@@ -21,8 +21,16 @@ public class GameMode : MonoBehaviour
     public void GameOver()
     {
         SetGamePaused(true);
+        UpdateLeaderBoard();
+
         isGameOver = true;
         onGameOver?.Invoke();
+    }
+
+    private void UpdateLeaderBoard()
+    {
+        int score = GetComponent<ScoreKeeper>().Score;
+        SaveDataManager.SaveNewLeaderBoardEntry("TestPlAYER", DateTime.Now, score);
     }
 
     public void SetGamePaused(bool isPaused)

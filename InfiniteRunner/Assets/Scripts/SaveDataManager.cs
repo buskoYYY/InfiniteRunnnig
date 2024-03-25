@@ -17,6 +17,34 @@ public static class SaveDataManager
             playerNames = names;
         }
     }
+
+    [Serializable]
+
+    public class LeaderBoardEntryData
+    {
+        public string name;
+        public string date;
+        public int score;
+
+        public LeaderBoardEntryData(string name, DateTime date, int score)
+        {
+            this.name = name;
+            this.date = date.ToString();
+            this.score = score;
+        }
+    }
+
+    [Serializable]
+
+    class LeaderBoardListData
+    {
+        public List<LeaderBoardEntryData> entries = new List<LeaderBoardEntryData>();
+
+        public LeaderBoardListData(List<LeaderBoardEntryData> entries)
+        {
+            this.entries = entries;
+        }
+    }
     static string GetSaveDir() // функция возвращает путь (тип string) где храняться данные
     {
         return Application.persistentDataPath;
@@ -72,5 +100,41 @@ public static class SaveDataManager
         players.Remove(playerName);
 
         SavePlayerProfilesFromList(players) ;
+    }
+
+    public static void SaveNewLeaderBoardEntry(string name, DateTime date, int score)
+    {
+        LeaderBoardEntryData newEntry = new LeaderBoardEntryData(name, date, score);
+        GetSavedEntryList(out List<LeaderBoardEntryData> entries);
+
+        entries.Add(newEntry);
+
+        LeaderBoardListData data = new LeaderBoardListData(entries);
+        string dataJSON = JsonUtility.ToJson(data,true); 
+        File.WriteAllText(GetPlayerProfileSaveDir(), dataJSON);
+    }
+
+    public static bool GetSavedEntryList(out List<LeaderBoardEntryData> entries)
+    {
+        if(File.Exists(GetLeaderBoardSaveDir()))
+        {
+            string loadedData  = File.ReadAllText(GetSaveDir());
+            LeaderBoardListData loadData = JsonUtility.FromJson<LeaderBoardListData>(loadedData);
+            entries = loadData.entries;
+            return true;
+        }
+
+        entries = new List<LeaderBoardEntryData>();
+        return false;
+    }
+
+    private static string GetLeaderBoardSaveDir()
+    {
+        return GetSaveDir() + "/" + GetLeaderBoardSaveFileName();
+    }
+
+    private static string GetLeaderBoardSaveFileName()
+    {
+        return "LeaderBoard.lb";
     }
 }

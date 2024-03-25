@@ -10,6 +10,9 @@ public class ScoreKeeper : MonoBehaviour
     [Header("Settings")]
     private int score;
 
+    public int Score
+    { get { return score; } }
+
     public void ChangeScore(int amt)
     {
         score += amt;
