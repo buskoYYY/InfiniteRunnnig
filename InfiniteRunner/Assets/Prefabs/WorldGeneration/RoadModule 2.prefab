@@ -32,6 +32,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.33401287
       objectReference: {fileID: 0}
+    - target: {fileID: 4369649025198561378, guid: 2145bc0253a830a449676ae25822c4a5, type: 3}
+      propertyPath: audioToPlay
+      value: 
+      objectReference: {fileID: 8300000, guid: 3b4bf7c1c7ac4be4f8ceb8083637e1ce, type: 3}
     - target: {fileID: 6666218317094129975, guid: 2145bc0253a830a449676ae25822c4a5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] LayerMask groundCheckMask;
     [SerializeField] InGameUI playerUI;
+    [SerializeField] AudioSource actionAudioSource;
+    [SerializeField] AudioClip jumpAudioClip;
+    [SerializeField] AudioClip moveAudioClip;
     private Animator playerAnimator;
     private Camera playerCamera;
 
@@ -50,7 +53,7 @@ public class Player : MonoBehaviour
                                                               // canceled - если кнопка отпущена
                                                               //  событие (event)
         playerInput.gamePlay.Jump.performed += JumpPerformed;
-        playerInput.gamePlay.Pause.performed += TogglePause;
+        playerInput.menu.Pause.performed += TogglePause;
 
         for (int i = 0; i < laneTransform.Length; i++)
         {
@@ -70,6 +73,16 @@ public class Player : MonoBehaviour
     private void TogglePause(InputAction.CallbackContext context)
     {
         GameMode gameMode = GamePlayStatic.GetGameMode();
+
+        if (playerInput.gamePlay.enabled)
+        {
+            playerInput.gamePlay.Disable();
+        }
+        else
+        {
+            playerInput.gamePlay.Enable();
+        }
+
         if (gameMode != null && !gameMode.IsGameOver())
         {
             gameMode.TogglePause();
@@ -87,6 +100,8 @@ public class Player : MonoBehaviour
             {
                 float jumpUpSpeed = Mathf.Sqrt(2 * jumpHight * Physics.gravity.magnitude);
                 rigidBody.AddForce(new Vector3(0, jumpUpSpeed, 0), ForceMode.VelocityChange);
+                actionAudioSource.clip = jumpAudioClip;
+                actionAudioSource.Play();
             }
         }
 
@@ -116,6 +131,10 @@ public class Player : MonoBehaviour
         {
             return;
         }
+
+        actionAudioSource.clip = moveAudioClip;
+        actionAudioSource.Play();
+
         currentIndex = goalIndex;
         destination = goalPos;
     }

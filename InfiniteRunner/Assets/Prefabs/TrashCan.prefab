@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7175773267595448418}
   - component: {fileID: 6574742630860356443}
   - component: {fileID: 8683796317089479201}
+  - component: {fileID: -7197229288682997800}
   m_Layer: 0
   m_Name: TrashCan
   m_TagString: PickUp
@@ -119,6 +120,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.46803525, y: 0.9357232, z: 0.59571594}
   m_Center: {x: 0.014341012, y: 0.45502084, z: 0.020858616}
+--- !u!114 &-7197229288682997800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964235947624301754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e0c7a7f5f5b2e4db5552279b4c6c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioToPlay: {fileID: 8300000, guid: abce9e87f78746f428679506a4f73420, type: 3}
+  audioPlayerPref: {fileID: -864492304010154428, guid: 11eb0980772ffa44d9886985a2854dd2, type: 3}
+  triggerTag: Player
+  volume: 1
+  pitch: 1
 --- !u!1001 &7972853238711329917
 PrefabInstance:
   m_ObjectHideFlags: 0
